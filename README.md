@@ -58,5 +58,4 @@ Sucesso!
 # Autor
 
 Tiago Gomes de Lima<br>
-[![Linkedin Badge](https://img.shields.io/badge/Tiago_Gomes-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tiago-gomes187/?target="_blank")](https://www.linkedin.com/in/tiago-gomes187/) 
-
+[![Linkedin Badge](https://img.shields.io/badge/Tiago_Gomes-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tiago-gomes187/){:target="_blank"}](https://www.linkedin.com/in/tiago-gomes187/) 
