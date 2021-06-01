@@ -18,10 +18,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
@@ -42,7 +45,6 @@ public class ProductServiceTests {
 	private long depententId;
 	private PageImpl<Product> page;
 	private Product product;
-	
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -59,7 +61,15 @@ public class ProductServiceTests {
 		doThrow(EmptyResultDataAccessException.class).when(repository).deleteById(nonExistingId);
 		doThrow(DataIntegrityViolationException.class).when(repository).deleteById(depententId);
 	}
-	
+
+	@Test
+	public void findAllPagedShouldReturnPage() {
+		Pageable pageable = PageRequest.of(0, 10);
+		Page<ProductDTO> result = service.findAllPaged(pageable);
+		Assertions.assertNotNull(result);
+		verify(repository, times(1)).findAll(pageable);
+	}
+
 	@Test
 	public void deleteShouldThrowDatabaseExceptionWhenIdDoesNotExist() {
 		Assertions.assertThrows(DatabaseException.class, () -> {
@@ -67,8 +77,7 @@ public class ProductServiceTests {
 		});
 		verify(repository, times(1)).deleteById(depententId);
 	}
-	
-	
+
 	@Test
 	public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
@@ -76,8 +85,7 @@ public class ProductServiceTests {
 		});
 		verify(repository, times(1)).deleteById(nonExistingId);
 	}
-	
-	
+
 	@Test
 	public void deleteShouldDoNothingWhenIdExists() {
 		Assertions.assertDoesNotThrow(() -> {
@@ -86,7 +94,4 @@ public class ProductServiceTests {
 		verify(repository, times(1)).deleteById(existingId);
 	}
 
-
-	
-	
 }
