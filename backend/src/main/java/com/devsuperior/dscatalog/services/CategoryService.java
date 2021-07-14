@@ -23,7 +23,7 @@ public class CategoryService {
 
 	@Autowired
 	private CategoryRepository repository;
-
+	
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAllPaged(Pageable pageable) {
 		Page<Category> list = repository.findAll(pageable);
@@ -39,7 +39,6 @@ public class CategoryService {
 
 	@Transactional
 	public CategoryDTO insert(CategoryDTO dto) {
-
 		Category entity = new Category();
 		entity.setName(dto.getName());
 		entity = repository.save(entity);
@@ -53,23 +52,21 @@ public class CategoryService {
 			entity.setName(dto.getName());
 			entity = repository.save(entity);
 			return new CategoryDTO(entity);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id " + id + " not found");
-
 		}
-
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}		
 	}
 
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Id " + id + " not found");
-		} catch (DataIntegrityViolationException e) {
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}
+		catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
 		}
-
 	}
-
 }

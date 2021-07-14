@@ -11,7 +11,7 @@ public class UserInsertDTO extends UserDTO {
 	UserInsertDTO() {
 		super();
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -19,5 +19,4 @@ public class UserInsertDTO extends UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 }
