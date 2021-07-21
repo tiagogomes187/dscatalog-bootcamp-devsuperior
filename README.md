@@ -2,8 +2,6 @@
 
 ## CRUD
 
-
-
 ### Competências
 
 - Criar projeto Spring Boot
