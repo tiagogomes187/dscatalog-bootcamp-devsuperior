@@ -3,7 +3,7 @@ import './styles.css';
 const ButtonIcon = () => {
   return (
     <button className="btn btn-primary btn-icon">
-      <p>INICIE AGORA A SUA BUSCA</p>
+      <h6>INICIE AGORA A SUA BUSCA</h6>
     </button>
   );
 };
