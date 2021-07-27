@@ -2,7 +2,6 @@
     padding: 10px;
     font-size: 20px;
     text-align: center;
-    border: 1px solid red;
 }
 
 .home-card {
@@ -11,7 +10,6 @@
     background-color: white;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    border: 1px solid orange;
 }
 
 .home-content-container {
@@ -19,7 +17,6 @@
     flex-direction: column;
     align-items: center;
     padding: 10px 10px 60px 10px;
-    border: 1px solid blue;
 }
 
 .home-content-container h1 {
@@ -37,7 +34,6 @@
 
 .home-image-container {
     padding: 50px 15px;
-    border: 1px solid purple;
 }
 
 .home-image-container svg {
@@ -99,9 +95,13 @@
 @media (min-width: 1200px) {
     .home-card {
         flex-direction: row;
+        justify-content: space-around;
+        padding: calc( ((85vh - 480px) / 2) - 20px) 0;
     }
     .home-content-container {
-        padding: 100px 20px;
+        height: 480px;
+        width: 700px;
+        padding: 20px;
         align-items: flex-start;
         text-align: left;
         align-content: space-between;
@@ -114,5 +114,11 @@
     }
     .home-image-container svg {
         width: 100%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .home-image-container svg {
+        width: 480px;
     }
 }
