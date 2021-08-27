@@ -1,6 +1,15 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import history from './history';
+import jwtDecode from 'jwt-decode';
+
+type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
+
+type TokenData = {
+  exp: number;
+  user_name: string;
+  authorities: Role[];
+};
 
 type LoginResponse = {
   access_token: string;
@@ -47,9 +56,9 @@ export const requestBackendLogin = (loginData: LoginData) => {
 export const requestBackend = (config: AxiosRequestConfig) => {
   const headers = config.withCredentials
     ? {
-        ...config.headers,
-        Authorization: 'Bearer ' + getAuthData().access_token,
-      }
+      ...config.headers,
+      Authorization: 'Bearer ' + getAuthData().access_token,
+    }
     : config.headers;
 
   return axios({ ...config, baseURL: BASE_URL, headers });
@@ -89,3 +98,18 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+
+export const getTokenData = (): TokenData | undefined => {
+  try {
+    return jwtDecode(getAuthData().access_token) as TokenData;
+  }
+  catch (error) {
+    return undefined;
+  }
+}
+
+export const isAuthenticated = (): boolean => {
+  const tokenData = getTokenData();
+  return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
+}
