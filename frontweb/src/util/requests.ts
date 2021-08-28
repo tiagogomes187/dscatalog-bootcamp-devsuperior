@@ -56,9 +56,9 @@ export const requestBackendLogin = (loginData: LoginData) => {
 export const requestBackend = (config: AxiosRequestConfig) => {
   const headers = config.withCredentials
     ? {
-      ...config.headers,
-      Authorization: 'Bearer ' + getAuthData().access_token,
-    }
+        ...config.headers,
+        Authorization: 'Bearer ' + getAuthData().access_token,
+      }
     : config.headers;
 
   return axios({ ...config, baseURL: BASE_URL, headers });
@@ -75,7 +75,7 @@ export const getAuthData = () => {
 
 export const removeAuthData = () => {
   localStorage.removeItem(tokenKey);
-}
+};
 
 // Add a request interceptor
 axios.interceptors.request.use(
@@ -103,17 +103,29 @@ axios.interceptors.response.use(
   }
 );
 
-
 export const getTokenData = (): TokenData | undefined => {
   try {
     return jwtDecode(getAuthData().access_token) as TokenData;
-  }
-  catch (error) {
+  } catch (error) {
     return undefined;
   }
-}
+};
 
 export const isAuthenticated = (): boolean => {
   const tokenData = getTokenData();
-  return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
-}
+  return tokenData && tokenData.exp * 1000 > Date.now() ? true : false;
+};
+
+export const hasAnyRoles = (roles: Role[]): boolean => {
+  if (roles.length === 0) {
+    return true;
+  }
+
+  const tokenData = getTokenData();
+
+  if (tokenData !== undefined) {
+    return roles.some((role) => tokenData.authorities.includes(role));
+  }
+
+  return false;
+};
