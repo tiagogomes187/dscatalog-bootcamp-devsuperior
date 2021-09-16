@@ -5,12 +5,19 @@ import { useEffect } from 'react';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 import './styles.css';
+import Select from 'react-select';
 
 type UrlParams = {
   productId: string;
 };
 
 const Form = () => {
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
+
   const { productId } = useParams<UrlParams>();
 
   const isEditing = productId !== 'create';
@@ -85,6 +92,14 @@ const Form = () => {
                 <div className="invalid-feedback d-block">
                   {errors.name?.message}
                 </div>
+              </div>
+
+              <div className="margin-botton-30">
+                <Select
+                  options={options}
+                  classNamePrefix="product-crud-select"
+                  isMulti
+                />
               </div>
 
               <div className="margin-botton-30">
