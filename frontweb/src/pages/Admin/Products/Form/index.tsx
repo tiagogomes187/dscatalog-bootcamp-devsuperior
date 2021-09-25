@@ -6,6 +6,7 @@ import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 import Select from 'react-select';
 import { Category } from 'types/category';
+import { toast } from 'react-toastify';
 
 import './styles.css';
 import CurrencyInput from 'react-currency-input-field';
@@ -63,9 +64,14 @@ const Form = () => {
       withCredentials: true,
     };
 
-    requestBackend(config).then(() => {
-      history.push('/admin/products');
-    });
+    requestBackend(config)
+      .then(() => {
+        toast.info('Produto cadastrado com sucesso!');
+        history.push('/admin/products');
+      })
+      .catch((err) => {
+        toast.error('Erro ao cadastrar produto');
+      });
   };
 
   const handleCancel = () => {
