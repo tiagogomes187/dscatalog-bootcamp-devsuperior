@@ -14,7 +14,7 @@ const ButtonIcon = ({ text }: Props) => {
       </button>
 
       <div className="btn-icon-container">
-        <ArrowIcon />
+        <ArrowIcon data-testid="arrow" />
       </div>
     </div>
   );
