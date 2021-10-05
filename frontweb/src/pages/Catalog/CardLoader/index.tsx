@@ -1,5 +1,4 @@
 import ContentLoader from 'react-content-loader';
-import './styles.css';
 
 const CardLoader = () => (
   <div className="card-loader-container">

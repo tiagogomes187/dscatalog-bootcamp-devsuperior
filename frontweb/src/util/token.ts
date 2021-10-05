@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import { Role } from '../types/role';
+import { Role } from 'types/role';
 import { getAuthData } from './storage';
 
 export type TokenData = {

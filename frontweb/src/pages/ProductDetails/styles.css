@@ -14,10 +14,10 @@
 }
 
 .goback-container h2 {
-    font-size: 1em;
     margin-left: 15px;
+    font-size: 1em;
     color: #263238;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     text-transform: uppercase;
 }
 
@@ -73,6 +73,7 @@
         padding: 20px;
         font-size: 32px;
     }
+
     .product-details-card {
         padding: 20px;
     }
@@ -82,15 +83,19 @@
     .product-details-container {
         padding: 40px;
     }
+
     .product-details-card {
         padding: 40px;
     }
+
     .img-container img {
         width: 50%;
     }
+
     .description-container {
         padding: 40px;
     }
+
     .name-price-container {
         display: flex;
         justify-content: space-between;
@@ -101,10 +106,12 @@
     .name-price-container {
         display: block;
     }
+
     .img-container img {
         height: 280px;
         width: auto;
     }
+
     .description-container {
         min-height: 302px;
     }
@@ -115,6 +122,7 @@
         height: 480px;
         width: auto;
     }
+
     .description-container {
         min-height: 502px;
     }

@@ -1,11 +1,11 @@
 import { ReactComponent as SearchIcon } from 'assets/images/search-icon.svg';
-import { Controller, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { Category } from 'types/category';
+import { requestBackend } from 'util/requests';
 
 import './styles.css';
-import { requestBackend } from 'util/requests';
 
 export type ProductFilterData = {
   name: string;
@@ -63,7 +63,6 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
             <SearchIcon />
           </button>
         </div>
-
         <div className="product-filter-bottom-container">
           <div className="product-filter-category-container">
             <Controller
@@ -73,10 +72,10 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
                 <Select
                   {...field}
                   options={selectCategories}
-                  classNamePrefix="product-filter-select"
-                  onChange={(value) => handleChangeCategory(value as Category)}
                   isClearable
                   placeholder="Categoria"
+                  classNamePrefix="product-filter-select"
+                  onChange={(value) => handleChangeCategory(value as Category)}
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}
                 />
@@ -87,7 +86,7 @@ const ProductFilter = ({ onSubmitFilter }: Props) => {
             onClick={handleFormClear}
             className="btn btn-outline-secondary btn-product-filter-clear"
           >
-            LIMPAR<span className="btn-product-filter-word"> FILTRO</span>{' '}
+            LIMPAR<span className="btn-product-filter-word"> FILTRO</span>
           </button>
         </div>
       </form>

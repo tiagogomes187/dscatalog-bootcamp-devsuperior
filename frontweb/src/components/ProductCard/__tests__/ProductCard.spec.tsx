@@ -1,18 +1,21 @@
-import { render, screen } from '@testing-library/react';
-import { Product } from 'types/product';
-import ProductCard from '..';
+import { render, screen } from "@testing-library/react";
+import { Product } from "types/product";
+import ProductCard from "..";
 
 test('should render ProductCard', () => {
-  const product: Product = {
-    name: 'Computador',
-    price: 2345.67,
-    imgUrl: 'https://google.com',
-  } as Product;
 
-  render(<ProductCard product={product} />);
+    const product : Product = {
+        name: "Computador",
+        price: 2345.67,
+        imgUrl: "https://google.com"
+    } as Product;
 
-  expect(screen.getByText(product.name)).toBeInTheDocument();
-  expect(screen.getByAltText(product.name)).toBeInTheDocument();
-  expect(screen.getByText('R$')).toBeInTheDocument();
-  expect(screen.getByText('2.345,67')).toBeInTheDocument();
+    render(
+        <ProductCard product={product} />
+    );
+
+    expect(screen.getByText(product.name)).toBeInTheDocument();
+    expect(screen.getByAltText(product.name)).toBeInTheDocument();
+    expect(screen.getByText("R$")).toBeInTheDocument();
+    expect(screen.getByText("2.345,67")).toBeInTheDocument();
 });

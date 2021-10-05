@@ -1,12 +1,11 @@
 import ProductCard from 'components/ProductCard';
-import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
+import { Link } from 'react-router-dom';
 import Pagination from 'components/Pagination';
 import { useState, useEffect } from 'react';
 import { SpringPage } from 'types/vendor/spring';
 import { requestBackend } from 'util/requests';
 import { AxiosRequestConfig } from 'axios';
-
 import CardLoader from './CardLoader';
 
 import './styles.css';
@@ -33,7 +32,7 @@ const Catalog = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  };
+  }
 
   useEffect(() => {
     getProducts(0);
@@ -60,9 +59,9 @@ const Catalog = () => {
       </div>
 
       <div className="row">
-        <Pagination
-          pageCount={page ? page.totalPages : 0}
-          range={3}
+        <Pagination 
+          pageCount={page ? page.totalPages : 0} 
+          range={3} 
           onChange={getProducts}
         />
       </div>

@@ -1,15 +1,16 @@
 import { AxiosRequestConfig } from 'axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import CurrencyInput from 'react-currency-input-field';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Product } from 'types/product';
-import { requestBackend } from 'util/requests';
 import Select from 'react-select';
 import { Category } from 'types/category';
+import { Product } from 'types/product';
+import { requestBackend } from 'util/requests';
 import { toast } from 'react-toastify';
 
 import './styles.css';
-import CurrencyInput from 'react-currency-input-field';
 
 type UrlParams = {
   productId: string;
@@ -42,6 +43,7 @@ const Form = () => {
     if (isEditing) {
       requestBackend({ url: `/products/${productId}` }).then((response) => {
         const product = response.data as Product;
+
         setValue('name', product.name);
         setValue('price', product.price);
         setValue('description', product.description);
@@ -65,13 +67,13 @@ const Form = () => {
     };
 
     requestBackend(config)
-      .then(() => {
-        toast.info('Produto cadastrado com sucesso!');
-        history.push('/admin/products');
-      })
-      .catch((err) => {
-        toast.error('Erro ao cadastrar produto');
-      });
+    .then(() => {
+      toast.info('Produto cadastrado com sucesso');
+      history.push('/admin/products');
+    })
+    .catch(() => {
+      toast.error('Erro ao cadastrar produto');
+    });
   };
 
   const handleCancel = () => {
@@ -83,10 +85,10 @@ const Form = () => {
       <div className="base-card product-crud-form-card">
         <h1 className="product-crud-form-title">DADOS DO PRODUTO</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} data-testid="form">
           <div className="row product-crud-inputs-container">
             <div className="col-lg-6 product-crud-inputs-left-container">
-              <div className="margin-botton-30">
+              <div className="margin-bottom-30">
                 <input
                   {...register('name', {
                     required: 'Campo obrigatório',
@@ -97,13 +99,15 @@ const Form = () => {
                   }`}
                   placeholder="Nome do produto"
                   name="name"
+                  data-testid="name"
                 />
                 <div className="invalid-feedback d-block">
                   {errors.name?.message}
                 </div>
               </div>
 
-              <div className="margin-botton-30">
+              <div className="margin-bottom-30 ">
+                <label htmlFor="categories" className="d-none">Categorias</label>
                 <Controller
                   name="categories"
                   rules={{ required: true }}
@@ -118,6 +122,7 @@ const Form = () => {
                       getOptionValue={(category: Category) =>
                         String(category.id)
                       }
+                      inputId="categories"
                     />
                   )}
                 />
@@ -128,7 +133,7 @@ const Form = () => {
                 )}
               </div>
 
-              <div className="margin-botton-30">
+              <div className="margin-bottom-30">
                 <Controller
                   name="price"
                   rules={{ required: 'Campo obrigatório' }}
@@ -142,6 +147,7 @@ const Form = () => {
                       disableGroupSeparators={true}
                       value={field.value}
                       onValueChange={field.onChange}
+                      data-testid="price"
                     />
                   )}
                 />
@@ -150,7 +156,7 @@ const Form = () => {
                 </div>
               </div>
 
-              <div className="margin-botton-30">
+              <div className="margin-bottom-30">
                 <input
                   {...register('imgUrl', {
                     required: 'Campo obrigatório',
@@ -165,6 +171,7 @@ const Form = () => {
                   }`}
                   placeholder="URL da imagem do produto"
                   name="imgUrl"
+                  data-testid="imgUrl"
                 />
                 <div className="invalid-feedback d-block">
                   {errors.imgUrl?.message}
@@ -183,6 +190,7 @@ const Form = () => {
                   }`}
                   placeholder="Descrição"
                   name="description"
+                  data-testid="description"
                 />
                 <div className="invalid-feedback d-block">
                   {errors.description?.message}
@@ -190,7 +198,6 @@ const Form = () => {
               </div>
             </div>
           </div>
-
           <div className="product-crud-buttons-container">
             <button
               className="btn btn-outline-danger product-crud-button"
@@ -198,7 +205,6 @@ const Form = () => {
             >
               CANCELAR
             </button>
-
             <button className="btn btn-primary product-crud-button text-white">
               SALVAR
             </button>
